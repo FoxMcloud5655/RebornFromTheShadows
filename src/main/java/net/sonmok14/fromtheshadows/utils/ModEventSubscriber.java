@@ -14,15 +14,14 @@ import net.sonmok14.fromtheshadows.utils.registry.EntityRegistry;
 
 @Mod.EventBusSubscriber(modid = Fromtheshadows.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventSubscriber {
-    @SubscribeEvent
-    public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
-        SpawnPlacements.register(EntityRegistry.NEHEMOTH.get(), SpawnPlacements.Type.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkAnyLightMonsterSpawnRules);
-    }
+	@SubscribeEvent
+	public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
+		SpawnPlacements.register(EntityRegistry.NEHEMOTH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkAnyLightMonsterSpawnRules);
+	}
 
-    @SubscribeEvent
-    public static void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(EntityRegistry.NEHEMOTH.get(), NehemothEntity.createAttributes().build());
-    }
+	@SubscribeEvent
+	public static void entityAttributes(EntityAttributeCreationEvent event) {
+		event.put(EntityRegistry.NEHEMOTH.get(), NehemothEntity.createAttributes().build());
+	}
 
 }

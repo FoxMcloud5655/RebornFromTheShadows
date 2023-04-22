@@ -9,9 +9,6 @@ import net.sonmok14.fromtheshadows.Fromtheshadows;
 @Mod.EventBusSubscriber(modid = Fromtheshadows.MODID, value = Dist.CLIENT)
 public class CommonProxy {
 
-
-
-        public void clientInit() {
-        }
+	public void clientInit() {}
 
 }
