@@ -1,0 +1,26 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.nehemothslayer.idle": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"position": {
+						"vector": ["math.sin(40-query.anim_time*2500)*-0.1", "math.clamp(math.sin(40-query.anim_time*2000)*0.2,0,0.2)", 0]
+					}
+				},
+				"sword": {
+					"position": {
+						"vector": ["math.sin(40-query.anim_time*2500)*-0.1", "math.clamp(math.sin(40-query.anim_time*2000)*0.2,0,0.2)", 0]
+					}
+				},
+				"root": {
+					"position": {
+						"vector": ["math.sin(40-query.anim_time*2500)*-0.1", "math.clamp(math.sin(40-query.anim_time*2000)*0.2,0,0.2)", 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -1,0 +1,28 @@
+
+modLoader="javafml" #mandatory
+loaderVersion="[39,)" #mandatory
+license="MIT"
+
+[[mods]] #mandatory
+modId="fromtheshadows" #mandatory
+issueTrackerURL="https://github.com/Sonmok14/FromTheShadows/issues"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/from-the-shadows-forge"
+version="${file.jarVersion}" #mandatory
+displayName="From the shadows" #mandatory
+logoFile="fromtheshadows.png" #optional
+authors="Sonmok14" #optional
+description='''
+Against the evil of ancient evil!
+'''
+[[dependencies.fromtheshadows]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[39,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.fromtheshadows]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"

@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#  ",
+        "#iG",
+        "Bg "
+    ],
+    "key": {
+        "#": {
+            "item": "fromtheshadows:bottle_of_blood"
+        },
+        "i": {
+            "item": "minecraft:iron_ingot"
+        },
+        "G": {
+            "item": "minecraft:quartz"
+        },
+        "B": {
+            "item": "minecraft:blaze_powder"
+        },
+        "g": {
+            "item": "minecraft:gold_ingot"
+        }
+    },
+    "result": {
+        "item": "fromtheshadows:diabolium_ingot",
+        "count": 1
+    }
+}

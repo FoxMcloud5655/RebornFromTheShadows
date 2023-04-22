@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "i i",
+    "iii",
+    "BiB"
+  ],
+  "key": {
+    "i": {
+      "item": "fromtheshadows:diabolium_ingot"
+    },
+    "B": {
+      "item": "minecraft:bone"
+    }
+  },
+  "result": {
+    "item": "fromtheshadows:diabolium_chest",
+    "count": 1
+  }
+}
