@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.sonmok14.fromtheshadows.utils.registry.EffectRegistry;
 import net.sonmok14.fromtheshadows.utils.registry.ItemRegistry;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -23,58 +26,57 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 
 public class DiaboliumArmorItem extends GeoArmorItem implements IAnimatable {
-	private AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory;
 
-	public DiaboliumArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder) {
+	public DiaboliumArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builder) {
 		super(materialIn, slot, builder.tab(CreativeModeTab.TAB_COMBAT));
+		factory = new AnimationFactory((IAnimatable) this);
 	}
 
-	// Predicate runs every frame
-	@SuppressWarnings("unused")
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		// This is all the extradata this event carries. The livingentity is the entity
-		// that's wearing the armor. The itemstack and equipmentslottype are self
-		// explanatory.
 		List<EquipmentSlot> slotData = event.getExtraDataOfType(EquipmentSlot.class);
 		List<ItemStack> stackData = event.getExtraDataOfType(ItemStack.class);
 		LivingEntity livingEntity = event.getExtraDataOfType(LivingEntity.class).get(0);
-
-		// Always loop the animation but later on in this method we'll decide whether or
-		// not to actually play it
-		event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diabolium.none", true));
-
-		// If the living entity is an armorstand just play the animation nonstop
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diabolium.none", Boolean.valueOf(true)));
 		if (livingEntity instanceof ArmorStand) {
 			return PlayState.CONTINUE;
 		}
 		if (livingEntity instanceof Player player) {
-			// Get all the equipment, aka the armor, currently held item, and offhand item
-			List<Item> equipmentList = new ArrayList<>();
-			player.getAllSlots().forEach((x) -> equipmentList.add(x.getItem()));
-
-			// elements 2 to 6 are the armor so we take the sublist. Armorlist now only
-			// contains the 4 armor slots
+			List<Item> equipmentList = new ArrayList<Item>();
+			player.getAllSlots().forEach(x -> equipmentList.add(x.getItem()));
 			List<Item> armorList = equipmentList.subList(2, 6);
-
-			// Make sure the player is wearing all the armor. If they are, continue playing
-			// the animation, otherwise stop
-			boolean isWearingAll = armorList.containsAll(Arrays.asList(ItemRegistry.DIABOLIUM_LEGGINGS.get(), ItemRegistry.DIABOLIUM_CHEST.get(), ItemRegistry.DIABOLIUM_HEAD.get()));
+			boolean isWearingAll = armorList.containsAll(Arrays.asList((DiaboliumArmorItem) ItemRegistry.DIABOLIUM_LEGGINGS.get(), (DiaboliumArmorItem) ItemRegistry.DIABOLIUM_CHEST.get(), (DiaboliumArmorItem) ItemRegistry.DIABOLIUM_HEAD.get()));
 			return isWearingAll ? PlayState.CONTINUE : PlayState.STOP;
 		}
 		return PlayState.STOP;
 	}
 
-	// All you need to do here is add your animation controllers to the
-	// AnimationData
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	@Override
 	public void registerControllers(AnimationData data) {
-		data.addAnimationController(new AnimationController(this, "controller", 20, this::predicate));
+		data.addAnimationController(new AnimationController((IAnimatable) this, "controller", 20.0f, this::predicate));
 	}
 
-	@Override
 	public AnimationFactory getFactory() {
-		return this.factory;
+		return factory;
 	}
 
+	public boolean hurtEnemy(ItemStack p_41395_, LivingEntity p_41396_, LivingEntity p_41397_) {
+		if (p_41396_ instanceof Player player) {
+			List<Item> equipmentList = new ArrayList<Item>();
+			player.getAllSlots().forEach(x -> equipmentList.add(x.getItem()));
+			List<Item> armorList = equipmentList.subList(2, 6);
+			boolean isWearingAll = armorList.containsAll(Arrays.asList((DiaboliumArmorItem) ItemRegistry.DIABOLIUM_LEGGINGS.get(), (DiaboliumArmorItem) ItemRegistry.DIABOLIUM_CHEST.get(), (DiaboliumArmorItem) ItemRegistry.DIABOLIUM_HEAD.get()));
+			if (isWearingAll && player.doHurtTarget(p_41397_) && !p_41397_.hasEffect((MobEffect) EffectRegistry.BLEEDING.get())) {
+				p_41397_.addEffect(new MobEffectInstance((MobEffect) EffectRegistry.BLEEDING.get(), 200), p_41396_);
+			}
+		}
+		return true;
+	}
+
+	public boolean isValidRepairItem(ItemStack p_41134_, ItemStack p_41135_) {
+		return p_41135_.is((Item) ItemRegistry.DIABOLIUM_INGOT.get());
+	}
+
+	public boolean isRepairable(ItemStack stack) {
+		return super.isRepairable(stack);
+	}
 }

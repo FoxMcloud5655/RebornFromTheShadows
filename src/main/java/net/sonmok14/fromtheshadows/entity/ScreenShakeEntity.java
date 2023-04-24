@@ -17,10 +17,10 @@ import net.minecraftforge.network.NetworkHooks;
 import net.sonmok14.fromtheshadows.utils.registry.EntityRegistry;
 
 public class ScreenShakeEntity extends Entity {
-	private static final EntityDataAccessor<Float> RADIUS = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> MAGNITUDE = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> FADE_DURATION = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.INT);
+	private static EntityDataAccessor<Float> RADIUS;
+	private static EntityDataAccessor<Float> MAGNITUDE;
+	private static EntityDataAccessor<Integer> DURATION;
+	private static EntityDataAccessor<Integer> FADE_DURATION;
 
 	public ScreenShakeEntity(EntityType<?> type, Level world) {
 		super(type, world);
@@ -39,13 +39,12 @@ public class ScreenShakeEntity extends Entity {
 	public float getShakeAmount(Player player, float delta) {
 		float ticksDelta = tickCount + delta;
 		float timeFrac = 1.0f - (ticksDelta - getDuration()) / (getFadeDuration() + 1.0f);
-		float baseAmount = ticksDelta < getDuration() ? getMagnitude() : timeFrac * timeFrac * getMagnitude();
+		float baseAmount = (ticksDelta < getDuration()) ? getMagnitude() : (timeFrac * timeFrac * getMagnitude());
 		Vec3 playerPos = player.getEyePosition(delta);
-		float distFrac = (float) (1.0f - Mth.clamp(position().distanceTo(playerPos) / getRadius(), 0, 1));
+		float distFrac = (float) (1.0 - Mth.clamp(position().distanceTo(playerPos) / getRadius(), 0.0, 1.0));
 		return baseAmount * distFrac * distFrac;
 	}
 
-	@Override
 	public void tick() {
 		super.tick();
 		if (tickCount > getDuration() + getFadeDuration()) {
@@ -53,47 +52,45 @@ public class ScreenShakeEntity extends Entity {
 		}
 	}
 
-	@Override
 	protected void defineSynchedData() {
-		this.entityData.define(RADIUS, 10.0f);
-		this.entityData.define(MAGNITUDE, 1.0f);
-		this.entityData.define(DURATION, 0);
-		this.entityData.define(FADE_DURATION, 5);
+		entityData.define((EntityDataAccessor) ScreenShakeEntity.RADIUS, 10.0f);
+		entityData.define((EntityDataAccessor) ScreenShakeEntity.MAGNITUDE, 1.0f);
+		entityData.define((EntityDataAccessor) ScreenShakeEntity.DURATION, 0);
+		entityData.define((EntityDataAccessor) ScreenShakeEntity.FADE_DURATION, 5);
 	}
 
 	public float getRadius() {
-		return this.entityData.get(RADIUS);
+		return (float) entityData.get((EntityDataAccessor) ScreenShakeEntity.RADIUS);
 	}
 
 	public void setRadius(float radius) {
-		this.entityData.set(RADIUS, radius);
+		entityData.set((EntityDataAccessor) ScreenShakeEntity.RADIUS, radius);
 	}
 
 	public float getMagnitude() {
-		return this.entityData.get(MAGNITUDE);
+		return (float) entityData.get((EntityDataAccessor) ScreenShakeEntity.MAGNITUDE);
 	}
 
 	public void setMagnitude(float magnitude) {
-		this.entityData.set(MAGNITUDE, magnitude);
+		entityData.set((EntityDataAccessor) ScreenShakeEntity.MAGNITUDE, magnitude);
 	}
 
 	public int getDuration() {
-		return this.entityData.get(DURATION);
+		return (int) entityData.get((EntityDataAccessor) ScreenShakeEntity.DURATION);
 	}
 
 	public void setDuration(int duration) {
-		this.entityData.set(DURATION, duration);
+		entityData.set((EntityDataAccessor) ScreenShakeEntity.DURATION, duration);
 	}
 
 	public int getFadeDuration() {
-		return this.entityData.get(FADE_DURATION);
+		return (int) entityData.get((EntityDataAccessor) ScreenShakeEntity.FADE_DURATION);
 	}
 
 	public void setFadeDuration(int fadeDuration) {
-		this.entityData.set(FADE_DURATION, fadeDuration);
+		entityData.set((EntityDataAccessor) ScreenShakeEntity.FADE_DURATION, fadeDuration);
 	}
 
-	@Override
 	protected void readAdditionalSaveData(CompoundTag compound) {
 		setRadius(compound.getFloat("radius"));
 		setMagnitude(compound.getFloat("magnitude"));
@@ -102,7 +99,6 @@ public class ScreenShakeEntity extends Entity {
 		tickCount = compound.getInt("ticks_existed");
 	}
 
-	@Override
 	protected void addAdditionalSaveData(CompoundTag compound) {
 		compound.putFloat("radius", getRadius());
 		compound.putFloat("magnitude", getMagnitude());
@@ -111,9 +107,8 @@ public class ScreenShakeEntity extends Entity {
 		compound.putInt("ticks_existed", tickCount);
 	}
 
-	@Override
 	public Packet<?> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return (Packet<?>) NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	public static void ScreenShake(Level world, Vec3 position, float radius, float magnitude, int duration, int fadeDuration) {
@@ -121,5 +116,12 @@ public class ScreenShakeEntity extends Entity {
 			ScreenShakeEntity ScreenShake = new ScreenShakeEntity(world, position, radius, magnitude, duration, fadeDuration);
 			world.addFreshEntity(ScreenShake);
 		}
+	}
+
+	static {
+		RADIUS = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.FLOAT);
+		MAGNITUDE = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.FLOAT);
+		DURATION = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.INT);
+		FADE_DURATION = SynchedEntityData.defineId(ScreenShakeEntity.class, EntityDataSerializers.INT);
 	}
 }

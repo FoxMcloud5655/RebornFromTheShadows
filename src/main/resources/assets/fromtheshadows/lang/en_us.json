@@ -2,12 +2,20 @@
 
   "fromtheshadows.book.landing_text": "Apocrypa is a guide for players who play From the Shadows Mod.",
 
+  "entity.fromtheshadows.cultist": "Cultist",
   "entity.fromtheshadows.nehemoth": "Nehemoth",
+  "entity.fromtheshadows.armored_nehemoth": "Armored Nehemoth",
+  "entity.fromtheshadows.sculk_beast": "Sculk Beast(WIP)",
 
+  "item.fromtheshadows.cultist_spawn_egg": "Cultist spawn egg",
+  "item.fromtheshadows.armored_nehemoth_spawn_egg": "Armored Nehemoth spawn egg",
   "item.fromtheshadows.nehemoth_spawn_egg": "Nehemoth spawn egg",
   "item.fromtheshadows.bottle_of_blood": "Bottle of blood",
   "item.fromtheshadows.diabolium_ingot": "Diabolium Ingot",
   "item.fromtheshadows.diabolium_helmet": "Diabolium Helmet",
   "item.fromtheshadows.diabolium_chest": "Diabolium Chestplate",
-  "item.fromtheshadows.diabolium_leggings": "Diabolium Leggings"
+  "item.fromtheshadows.diabolium_leggings": "Diabolium Leggings",
+  "item.fromtheshadows.plague_doctor_mask": "Plague Doctor Mask",
+  "effect.fromtheshadows.heal_block": "Heal Block",
+  "effect.fromtheshadows.bleeding": "Bleeding"
 }

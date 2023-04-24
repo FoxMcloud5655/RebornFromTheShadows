@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Specification-Title: from-the-shadows
+Specification-Vendor: sonmok14
+Specification-Version: 1.82
+Implementation-Title: minecraft mod
+Implementation-Version: 1.82
+Implementation-Vendor: sonmok14
+Implementation-Timestamp: 2022-09-07T15:50:27+0900
+

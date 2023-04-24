@@ -23,7 +23,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
  
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.18.2'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -125,10 +125,10 @@ repositories {
 }
 
 dependencies {
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-65")
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-65:api")
-    minecraft 'net.minecraftforge:forge:1.18.1-39.1.0'
-  implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.11')
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71:api")
+    minecraft 'net.minecraftforge:forge:1.18.2-40.2.0'
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.57')
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
@@ -137,7 +137,7 @@ jar {
         attributes([
                 "Specification-Title"     : "from-the-shadows",
                 "Specification-Vendor"    : "sonmok14",
-                "Specification-Version"   : "1.1", // We are version 1 of ourselves
+                "Specification-Version"   : "1.0", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "sonmok14",

@@ -1,13 +1,18 @@
 {
 
   "fromtheshadows.book.landing_text": "아포크리파는 From the shadows를 플레이하는 유저들을 위한 가이드입니다.",
-
+  "entity.fromtheshadows.cultist": "광신도",
   "entity.fromtheshadows.nehemoth": "네헤모스",
+  "entity.fromtheshadows.sculk_beast": "스컬크 괴물(WIP)",
 
   "item.fromtheshadows.bottle_of_blood": "피가 담긴 병",
   "item.fromtheshadows.diabolium_ingot": "디아볼리움 주괴",
   "item.fromtheshadows.diabolium_helmet": "디아볼리움 투구",
   "item.fromtheshadows.diabolium_chest": "디아볼리움 흉갑",
   "item.fromtheshadows.diabolium_leggings": "디아볼리움 각반",
-  "item.fromtheshadows.nehemoth_spawn_egg": "네헤모스 생성 알"
+  "item.fromtheshadows.nehemoth_spawn_egg": "네헤모스 생성 알",
+  "item.fromtheshadows.cultist_spawn_egg": "광신도 생성 알",
+  "item.fromtheshadows.plague_doctor_mask": "역병 의사 마스크",
+  "effect.fromtheshadows.heal_block": "회복 봉인",
+  "effect.fromtheshadows.bleeding": "출혈"
 }

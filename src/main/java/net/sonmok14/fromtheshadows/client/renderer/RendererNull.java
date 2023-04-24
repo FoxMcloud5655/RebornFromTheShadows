@@ -19,7 +19,5 @@ public class RendererNull extends EntityRenderer<Entity> {
 	}
 
 	@Override
-	public void render(Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
-
-	}
+	public void render(Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {}
 }

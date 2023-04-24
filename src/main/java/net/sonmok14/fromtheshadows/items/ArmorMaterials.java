@@ -6,79 +6,77 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class ArmorMaterials implements ArmorMaterial {
-
-	protected static final int[] MAX_DAMAGE_ARRAY = new int[] {13, 15, 16, 11};
+	protected static int[] MAX_DAMAGE_ARRAY;
 	private String name;
 	private int durability;
 	private int[] damageReduction;
 	private int encantability;
 	private SoundEvent sound;
 	private float toughness;
-	private Ingredient ingredient = null;
-	public float knockbackResistance = 0.0F;
+	private Ingredient ingredient;
+	public float knockbackResistance;
 
 	public ArmorMaterials(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, float toughness) {
+		ingredient = null;
+		knockbackResistance = 0.0f;
 		this.name = name;
 		this.durability = durability;
 		this.damageReduction = damageReduction;
 		this.encantability = encantability;
 		this.sound = sound;
 		this.toughness = toughness;
-		this.knockbackResistance = 0;
+		knockbackResistance = 0.0f;
 	}
 
 	public ArmorMaterials(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, float toughness, float knockbackResist) {
+		ingredient = null;
+		knockbackResistance = 0.0f;
 		this.name = name;
 		this.durability = durability;
 		this.damageReduction = damageReduction;
 		this.encantability = encantability;
 		this.sound = sound;
 		this.toughness = toughness;
-		this.knockbackResistance = knockbackResist;
+		knockbackResistance = knockbackResist;
 	}
 
-	@Override
 	public int getDurabilityForSlot(EquipmentSlot slotIn) {
-		return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.durability;
+		return ArmorMaterials.MAX_DAMAGE_ARRAY[slotIn.getIndex()] * durability;
 	}
 
-	@Override
 	public int getDefenseForSlot(EquipmentSlot slotIn) {
-		return this.damageReduction[slotIn.getIndex()];
+		return damageReduction[slotIn.getIndex()];
 	}
 
-	@Override
 	public int getEnchantmentValue() {
-		return this.encantability;
+		return encantability;
 	}
 
-	@Override
 	public SoundEvent getEquipSound() {
-		return this.sound;
+		return sound;
 	}
 
-	@Override
 	public Ingredient getRepairIngredient() {
-		return this.ingredient == null ? Ingredient.EMPTY : this.ingredient;
+		return (ingredient == null) ? Ingredient.EMPTY : ingredient;
 	}
 
 	public void setRepairMaterial(Ingredient ingredient) {
 		this.ingredient = ingredient;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
 
-	@Override
 	public float getToughness() {
 		return toughness;
 	}
 
-	@Override
 	public float getKnockbackResistance() {
 		return knockbackResistance;
 	}
 
+	static {
+		MAX_DAMAGE_ARRAY = new int[] {13, 15, 16, 11};
+	}
 }
